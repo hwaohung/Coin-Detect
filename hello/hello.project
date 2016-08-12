@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="hello" InternalType="Console">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00010001N0005Debug000000000000]]>
+    </Plugin>
+  </Plugins>
+  <Description/>
+  <Dependencies/>
+  <VirtualDirectory Name="src">
+    <File Name="main.cpp"/>
+    <File Name="pcl_func.cpp"/>
+    <File Name="pcl_func.h"/>
+    <File Name="mlpack_func.h"/>
+    <File Name="mlpack_func.cpp"/>
+  </VirtualDirectory>
+  <Settings Type="Executable">
+    <GlobalSettings>
+      <Compiler Options="" C_Options="" Assembler="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="Debug" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall;-std=gnu++11" C_Options="-g;-O0;-Wall;" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="/usr/local/include/"/>
+        <IncludePath Value="/usr/local/include/pcl-1.8/"/>
+        <IncludePath Value="/usr/local/include/eigen3/"/>
+        <IncludePath Value="/usr/local/include/vtk-7.0/"/>
+      </Compiler>
+      <Linker Options="" Required="yes">
+        <LibraryPath Value="/usr/local/lib/"/>
+        <Library Value="libboost_system.so"/>
+        <Library Value="libboost_filesystem.so"/>
+        <Library Value="libboost_thread.so"/>
+        <Library Value="libboost_date_time.so"/>
+        <Library Value="libboost_iostreams.so"/>
+        <Library Value="libboost_serialization.so"/>
+        <Library Value="libboost_chrono.so"/>
+        <Library Value="libboost_atomic.so"/>
+        <Library Value="libboost_regex.so"/>
+        <Library Value="libpcl_io.so"/>
+        <Library Value="libpcl_common.so"/>
+        <Library Value="libpcl_features.so"/>
+        <Library Value="libpcl_search.so"/>
+        <Library Value="libpcl_keypoints.so"/>
+        <Library Value="libpcl_visualization.so"/>
+        <Library Value="libpcl_kdtree.so"/>
+        <Library Value="libpcl_filters.so"/>
+        <Library Value="libmlpack.so"/>
+        <Library Value="libvtkRenderingContext2D-7.0.so"/>
+        <Library Value="libvtkCommonMisc-7.0.so"/>
+        <Library Value="libvtkRenderingAnnotation-7.0.so"/>
+        <Library Value="libvtktiff-7.0.so"/>
+        <Library Value="libvtkFiltersCore-7.0.so"/>
+        <Library Value="libvtkImagingSources-7.0.so"/>
+        <Library Value="libvtkIOCore-7.0.so"/>
+        <Library Value="libvtkhdf5_hl-7.0.so"/>
+        <Library Value="libvtkexpat-7.0.so"/>
+        <Library Value="libvtkFiltersProgrammable-7.0.so"/>
+        <Library Value="libvtkInfovisLayout-7.0.so"/>
+        <Library Value="libvtkFiltersParallelImaging-7.0.so"/>
+        <Library Value="libvtkFiltersStatistics-7.0.so"/>
+        <Library Value="libvtkIOXML-7.0.so"/>
+        <Library Value="libvtkIOExport-7.0.so"/>
+        <Library Value="libvtkIOGeometry-7.0.so"/>
+        <Library Value="libvtkFiltersParallel-7.0.so"/>
+        <Library Value="libvtkpng-7.0.so"/>
+        <Library Value="libvtkFiltersTexture-7.0.so"/>
+        <Library Value="libvtkCommonMath-7.0.so"/>
+        <Library Value="libvtkFiltersExtraction-7.0.so"/>
+        <Library Value="libvtkDICOMParser-7.0.so"/>
+        <Library Value="libvtkRenderingCore-7.0.so"/>
+        <Library Value="libvtkImagingColor-7.0.so"/>
+        <Library Value="libvtkFiltersGeneric-7.0.so"/>
+        <Library Value="libvtkRenderingLOD-7.0.so"/>
+        <Library Value="libvtkCommonColor-7.0.so"/>
+        <Library Value="libvtkCommonTransforms-7.0.so"/>
+        <Library Value="libvtkIOInfovis-7.0.so"/>
+        <Library Value="libvtkalglib-7.0.so"/>
+        <Library Value="libvtkglew-7.0.so"/>
+        <Library Value="libvtkIOAMR-7.0.so"/>
+        <Library Value="libvtkFiltersAMR-7.0.so"/>
+        <Library Value="libvtkDomainsChemistryOpenGL2-7.0.so"/>
+        <Library Value="libvtkImagingStatistics-7.0.so"/>
+        <Library Value="libvtkRenderingVolume-7.0.so"/>
+        <Library Value="libvtkIOEnSight-7.0.so"/>
+        <Library Value="libvtkFiltersHyperTree-7.0.so"/>
+        <Library Value="libvtkfreetype-7.0.so"/>
+        <Library Value="libvtkIOParallel-7.0.so"/>
+        <Library Value="libvtkFiltersImaging-7.0.so"/>
+        <Library Value="libvtkRenderingVolumeOpenGL2-7.0.so"/>
+        <Library Value="libvtkIOParallelXML-7.0.so"/>
+        <Library Value="libvtkFiltersGeneral-7.0.so"/>
+        <Library Value="libvtkImagingMath-7.0.so"/>
+        <Library Value="libvtkRenderingOpenGL2-7.0.so"/>
+        <Library Value="libvtkIOLSDyna-7.0.so"/>
+        <Library Value="libvtkRenderingFreeType-7.0.so"/>
+        <Library Value="libvtkexoIIc-7.0.so"/>
+        <Library Value="libvtkIOMovie-7.0.so"/>
+        <Library Value="libvtklibxml2-7.0.so"/>
+        <Library Value="libvtkFiltersGeometry-7.0.so"/>
+        <Library Value="libvtkjsoncpp-7.0.so"/>
+        <Library Value="libvtkhdf5-7.0.so"/>
+        <Library Value="libvtkInteractionStyle-7.0.so"/>
+        <Library Value="libvtkFiltersHybrid-7.0.so"/>
+        <Library Value="libvtkCommonExecutionModel-7.0.so"/>
+        <Library Value="libvtkIOMINC-7.0.so"/>
+        <Library Value="libvtksqlite-7.0.so"/>
+        <Library Value="libvtkDomainsChemistry-7.0.so"/>
+        <Library Value="libvtkmetaio-7.0.so"/>
+        <Library Value="libvtkzlib-7.0.so"/>
+        <Library Value="libvtkIOLegacy-7.0.so"/>
+        <Library Value="libvtkCommonSystem-7.0.so"/>
+        <Library Value="libvtkFiltersSMP-7.0.so"/>
+        <Library Value="libvtkImagingMorphological-7.0.so"/>
+        <Library Value="libvtkImagingHybrid-7.0.so"/>
+        <Library Value="libvtkImagingCore-7.0.so"/>
+        <Library Value="libvtkIOVideo-7.0.so"/>
+        <Library Value="libvtkIOImage-7.0.so"/>
+        <Library Value="libvtkViewsInfovis-7.0.so"/>
+        <Library Value="libvtkNetCDF-7.0.so"/>
+        <Library Value="libvtkCommonCore-7.0.so"/>
+        <Library Value="libvtkViewsContext2D-7.0.so"/>
+        <Library Value="libvtkverdict-7.0.so"/>
+        <Library Value="libvtkFiltersModeling-7.0.so"/>
+        <Library Value="libvtkViewsCore-7.0.so"/>
+        <Library Value="libvtkIOSQL-7.0.so"/>
+        <Library Value="libvtkNetCDF_cxx-7.0.so"/>
+        <Library Value="libvtksys-7.0.so"/>
+        <Library Value="libvtkjpeg-7.0.so"/>
+        <Library Value="libvtkInteractionWidgets-7.0.so"/>
+        <Library Value="libvtkChartsCore-7.0.so"/>
+        <Library Value="libvtkoggtheora-7.0.so"/>
+        <Library Value="libvtkRenderingImage-7.0.so"/>
+        <Library Value="libvtkRenderingLabel-7.0.so"/>
+        <Library Value="libvtkCommonComputationalGeometry-7.0.so"/>
+        <Library Value="libvtkImagingFourier-7.0.so"/>
+        <Library Value="libvtkFiltersVerdict-7.0.so"/>
+        <Library Value="libvtkParallelCore-7.0.so"/>
+        <Library Value="libvtkFiltersSelection-7.0.so"/>
+        <Library Value="libvtkImagingStencil-7.0.so"/>
+        <Library Value="libvtkGeovisCore-7.0.so"/>
+        <Library Value="libvtkImagingGeneral-7.0.so"/>
+        <Library Value="libvtkInteractionImage-7.0.so"/>
+        <Library Value="libvtkRenderingContextOpenGL2-7.0.so"/>
+        <Library Value="libvtkFiltersSources-7.0.so"/>
+        <Library Value="libvtkIOPLY-7.0.so"/>
+        <Library Value="libvtkIOImport-7.0.so"/>
+        <Library Value="libvtkInfovisCore-7.0.so"/>
+        <Library Value="libvtkIOExodus-7.0.so"/>
+        <Library Value="libvtkproj4-7.0.so"/>
+        <Library Value="libvtkFiltersFlowPaths-7.0.so"/>
+        <Library Value="libvtkIONetCDF-7.0.so"/>
+        <Library Value="libvtkIOXMLParser-7.0.so"/>
+        <Library Value="libvtkCommonDataModel-7.0.so"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Debug" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="Default"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="yes">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="Release" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-O2;-Wall" C_Options="-O2;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+        <Preprocessor Value="NDEBUG"/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Release" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="Default"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+</CodeLite_Project>
