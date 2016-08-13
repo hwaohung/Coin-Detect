@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import numpy as np
+import scipy.optimize as optimization
 from os import listdir
 from os.path import isfile, join
 
@@ -15,17 +17,6 @@ VIEWPOINT 0 0 0 1 0 0 0
 POINTS {0}
 DATA ascii
 """
-
-#def convert(filename, output):
-#    lines = list()
-#    with open(filename, "r") as fp:
-#        for line in fp:
-#            lines.append(line.rstrip())
-#
-#    with open(output, "w") as fp:
-#        fp.write(template.format(len(lines)))
-#        for line in lines:
-#            fp.write(line.replace(",", " ") + "\n")
 
 def offset(points, offset_x=0, offset_y=0, offset_z=0):
     return [[_[0]+offset_x, _[1]+offset_x, _[2]+offset_x] for _ in points]
@@ -74,7 +65,7 @@ def scope_filter(points, h_axis, v_axis=2, safe_dist=1):
     keys = sorted(statistic.keys())
     values = [statistic[key] for key in keys]
   
-    if True:
+    if False:
         mean = sum(values) / len(values)
         l_i, r_i = 0, len(values)-1
     
@@ -84,28 +75,60 @@ def scope_filter(points, h_axis, v_axis=2, safe_dist=1):
         while values[r_i] < mean:
             r_i -= 1
 
-        if h_axis == 1:
-            while values[l_i] < mean:
-                l_i += 1
+        sp_points = list()
+        #for i in range(len(keys)):
+        for i in range(l_i, r_i+1):
+            point = [0.0, 0.0, 0.0]
+            point[h_axis] = keys[i]
+            point[v_axis] = values[i]
+            sp_points.append(point)
 
-            while values[r_i] < mean:
-                r_i -= 1
+        a, b = est_line(sp_points, h_axis, v_axis)
+        line = lambda x: a*x + b
 
-            values_1 = [values[i] for i in range(l_i, r_i+1)]
-            mean_1 = sum(values_1) / len(values_1)
-            t = [mean_1 for i in values]
-            import matplotlib.pyplot as plt
-            plt.plot(keys, values, keys, t, 'r.')
-            plt.show()
+        print a, b
+        t = [line(key) for key in keys]
+
+        import matplotlib.pyplot as plt
+        plt.plot(keys, values, keys, t, 'r.')
+        plt.show()
 
     else:
-        values = [values[i]-values[i+1] for i in range(0, len(values)-1)]
+        diffs = [values[i]-values[i+1] for i in range(0, len(values)-1)]
+        diffs = [abs(diff) for diff in diffs]
+        mean_diff = sum(diffs) / len(diffs)
+        
+        threshold = 0.9 * mean_diff + 0.1 * max(diffs)
+        l_i, r_i = 0, len(diffs)-1
+        while diffs[l_i] < threshold:
+            l_i += 1
+        
+        while diffs[r_i] < threshold:
+            r_i -= 1
 
-        # Negative edge
-        l_i = values.index(min(values))
+        r_i += 1
+       
+        temp = values[l_i: r_i+1]
+        mean = sum(temp) / len(temp)
 
-        # Positive edge
-        r_i = values.index(max(values)) + 1
+        #sp_points = list()
+        ##for i in range(len(keys)):
+        #for i in range(l_i, r_i+1):
+        #    point = [0.0, 0.0, 0.0]
+        #    point[h_axis] = keys[i]
+        #    point[v_axis] = values[i]
+        #    sp_points.append(point)
+
+        #a, b = est_line(sp_points, h_axis, v_axis)
+        #line = lambda x: a*x + b
+
+        #print a, b
+        #t = [line(key) for key in keys]
+
+        import matplotlib.pyplot as plt
+        #plt.plot(keys, values, keys, t, 'r.')
+        plt.plot(keys, values, keys[l_i: r_i+1], temp, 'r.')
+        plt.show()
     
     l_v = keys[l_i]
     r_v = keys[r_i]
@@ -141,9 +164,6 @@ def z_filter(points):
     return points
 
 
-import numpy as np
-import scipy.optimize as optimization
-
 # [[x1,y1], [x2,y2], ...]
 def est_line(points, h_axis, v_axis):
     ydata = np.array([point[v_axis] for point in points])
@@ -156,13 +176,17 @@ def est_line(points, h_axis, v_axis):
     x0 = np.array([0.0, 0.0])
     # params mean x => [a, b]
     x = optimization.leastsq(
-        lambda params, xdata, ydata: ydata - np.dot(xdata, params), 
+        lambda params, xdata, ydata: (ydata - np.dot(xdata, params)),
         x0, args=(xdata, ydata)
     )
-   
+
     # a, b
     return x[0]
 
+
+#points = [(1, 0, 2+10), (2, 0, 4+10), (3, 0, 6+10)]
+#print est_line(points, 0, 2)
+#exit()
 
 path = "."
 files = [f for f in listdir(path) if isfile(join(path, f))]
@@ -170,18 +194,26 @@ files = [f for f in files if f.endswith(".csv")]
 
 out_dir = "crop_filter/"
 
-files = ["台幣1元 正面.csv", "台幣1元 反面.csv"]
+files = ["台幣1元 反面.csv", "台幣1元 正面.csv", 
+         "台幣10元 反面.csv", "台幣10元 正面.csv",
+         "台幣50元 反面.csv", "台幣50元 正面.csv",
+         "外國幣-1 反面.csv", "外國幣-1 正面.csv",
+         "外國幣- 3反面.csv", "外國幣- 3正面.csv",
+         "外國幣- 4反面.csv", "外國幣- 4正面.csv"
+        ]
+
 for f in files:
     print f
     
     points = load(f)
-    a, b = est_line(points, 0, 2)
 
     origin = str(len(points))
     points = xy_filter(points)
     mod = str(len(points))
     print origin + "V.S." + mod
 
+    print "------------------------------>"
+    continue
     points = z_filter(points)
     save(points, out_dir + (f[:-4]+".pcd"))
     print "------------------------------>"
