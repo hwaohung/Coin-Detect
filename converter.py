@@ -52,7 +52,7 @@ def save(points, filename):
 
 
 # axis: x->0, y->1, z->2
-def scope_filter(points, h_axis, v_axis=2, safe_dist=1):
+def scope_filter(points, h_axis, v_axis=2, safe_dist=5):
     statistic = dict()
     for point in points:
         h_v = point[h_axis]
@@ -94,53 +94,44 @@ def scope_filter(points, h_axis, v_axis=2, safe_dist=1):
         plt.show()
 
     else:
-        diffs = [values[i]-values[i+1] for i in range(0, len(values)-1)]
-        diffs = [abs(diff) for diff in diffs]
-        mean_diff = sum(diffs) / len(diffs)
+        diffs = [values[i]-values[i+1] for i in range(len(values)-1)]
+
+        p_diffs = [diff for diff in diffs if diff > 0]
+        n_diffs = [diff for diff in diffs if diff < 0]
+
+        mean = sum(values) / len(values)
+        p_mean = sum(p_diffs) / len(p_diffs)
+        n_mean = sum(n_diffs) / len(n_diffs)
         
-        threshold = 0.9 * mean_diff + 0.1 * max(diffs)
         l_i, r_i = 0, len(diffs)-1
-        while diffs[l_i] < threshold:
+
+        threshold = n_mean
+        while diffs[l_i] > threshold or values[l_i+1] < mean:
             l_i += 1
-        
-        while diffs[r_i] < threshold:
+     
+        threshold = p_mean
+        while diffs[r_i] < threshold or values[r_i] < mean:
             r_i -= 1
-
         r_i += 1
-       
-        temp = values[l_i: r_i+1]
-        mean = sum(temp) / len(temp)
 
-        #sp_points = list()
-        ##for i in range(len(keys)):
-        #for i in range(l_i, r_i+1):
-        #    point = [0.0, 0.0, 0.0]
-        #    point[h_axis] = keys[i]
-        #    point[v_axis] = values[i]
-        #    sp_points.append(point)
-
-        #a, b = est_line(sp_points, h_axis, v_axis)
-        #line = lambda x: a*x + b
-
-        #print a, b
-        #t = [line(key) for key in keys]
-
-        import matplotlib.pyplot as plt
-        #plt.plot(keys, values, keys, t, 'r.')
-        plt.plot(keys, values, keys[l_i: r_i+1], temp, 'r.')
-        plt.show()
+    # Safe dist expand
+    l_i -= safe_dist
+    r_i += safe_dist
     
-    l_v = keys[l_i]
-    r_v = keys[r_i]
-
-    while keys[l_i] > l_v-safe_dist and l_i > 0:
-        l_i -= 1
-
-    while keys[r_i] < r_v+safe_dist and r_i < len(keys)-1:
-        r_i += 1
+    if l_i < 0: l_i = 0
+    if r_i > len(keys)-1: r_i = len(keys)-1
 
     l_v = keys[l_i]
     r_v = keys[r_i]
+
+    sub_keys = keys[l_i: r_i+1]
+    sub_values = values[l_i: r_i+1]
+
+    #import matplotlib.pyplot as plt
+    #plt.plot(keys, values, 'b-')
+    #plt.show()
+    #plt.plot(keys, values, 'b-', sub_keys, sub_values, 'r-')
+    #plt.show()
 
     return [point for point in points if point[h_axis] >= l_v and point[h_axis] <= r_v]
 
@@ -206,14 +197,11 @@ for f in files:
     print f
     
     points = load(f)
-
     origin = str(len(points))
-    points = xy_filter(points)
-    mod = str(len(points))
-    print origin + "V.S." + mod
 
-    print "------------------------------>"
-    continue
-    points = z_filter(points)
+    points = xy_filter(points)
+    #points = z_filter(points)
+
     save(points, out_dir + (f[:-4]+".pcd"))
+    print "{0} V.S. {1}".format(origin, len(points))
     print "------------------------------>"
