@@ -11,13 +11,20 @@
 #include <pcl/features/fpfh.h>
 //#include <pcl/features/intensity_spin.h>
 
+#include <pcl/sample_consensus/ransac.h>
+//#include <pcl/sample_consensus/sac_model_plane.h>
+#include <pcl/sample_consensus/sac_model_sphere.h>
+
 #include <pcl/visualization/pcl_visualizer.h>
+#include "mlpack_func.h"
 
 using namespace pcl;
 
 inline bool path_exist(const std::string& name);
 
 PointCloud<PointXYZ>::Ptr loadCloud(std::string file_name);
+
+arma::mat convert_to_mat(PointCloud<FPFHSignature33>::Ptr descriptors);
 
 void downsample(PointCloud<PointXYZ>::Ptr &points, float leaf_size,
 				PointCloud<PointXYZ>::Ptr &downsampled_out);
@@ -56,3 +63,5 @@ void visualize_correspondences (const pcl::PointCloud<pcl::PointXYZ>::Ptr points
                                 const pcl::PointCloud<pcl::PointWithScale>::Ptr keypoints2,
                                 const std::vector<int> &correspondences,
                                 const std::vector<float> &correspondence_scores);
+								
+PointCloud<PointXYZ>::Ptr RANSAC(PointCloud<PointXYZ>::Ptr points);

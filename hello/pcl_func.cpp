@@ -29,6 +29,40 @@ PointCloud<PointXYZ>::Ptr loadCloud(std::string file_name)
     return cloud;
 }
 
+arma::mat convert_to_mat(PointCloud<FPFHSignature33>::Ptr descriptors){
+    arma::mat data; // Dataset we want to run K-Means on.
+    data.set_size(33, descriptors->size());
+    arma::mat centroids; // Cluster centroids.
+    
+    for (int c = 0; c < descriptors->size(); c++){
+        for (int r = 0; r  < 33; r++){
+            data(r, c) = descriptors->points[c].histogram[r];
+        }
+    }
+    
+    // Cluster using the Manhattan distance, 100 iterations maximum, saving only
+    // the centroids.
+    kmeans::KMeans<metric::ManhattanDistance> k(100);
+    k.Cluster(data, 6, centroids); // 6 clusters.
+    
+    // With specified inital clusters
+    //arma::Row<size_t> assignments; // Cluster assignments.
+    //k.Cluster(data, 3, assignments, centroids); // 3 clusters.
+    
+    /*
+    centroids = join_rows(centroids, centroids);
+    std::cout << size(centroids) << "\n";
+    
+    for (int c = 0; c < centroids.n_cols; c++){
+        for (int r = 0; r < centroids.n_rows; r++){
+            std::cout << centroids(r, c) << ",";
+        }
+        std::cout << std::endl;
+    }
+    */      
+    return data;
+}
+
 void downsample(PointCloud<PointXYZ>::Ptr &points, float leaf_size,
                                 PointCloud<PointXYZ>::Ptr &downsampled_out)
 {
@@ -298,4 +332,26 @@ void visualize_correspondences (const pcl::PointCloud<pcl::PointXYZ>::Ptr points
     
     // Give control over to the visualizer
     viz.spin ();
+}
+
+PointCloud<PointXYZ>::Ptr RANSAC(PointCloud<PointXYZ>::Ptr points)
+{
+    std::vector<int> inliers;
+    // created RandomSampleConsensus object and compute the appropriated model
+    SampleConsensusModelSphere<PointXYZ>::Ptr
+        model_s(new SampleConsensusModelSphere<PointXYZ> (points));
+
+    RandomSampleConsensus<PointXYZ> ransac (model_s);
+    ransac.setDistanceThreshold (.01);
+    ransac.computeModel();
+    ransac.getInliers(inliers);
+
+    PointCloud<PointXYZ>::Ptr result (new PointCloud<PointXYZ>);
+    // copies all inliers of the model computed to another PointCloud
+    copyPointCloud<PointXYZ>(*points, inliers, *result);
+
+    //visualization::PCLVisualizer viz;
+    //viz.addPointCloud (result, "points");
+    //viz.spin ();
+    return result;
 }

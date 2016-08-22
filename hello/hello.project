@@ -50,6 +50,7 @@
         <Library Value="libpcl_visualization.so"/>
         <Library Value="libpcl_kdtree.so"/>
         <Library Value="libpcl_filters.so"/>
+        <Library Value="libpcl_sample_consensus.so"/>
         <Library Value="libmlpack.so"/>
         <Library Value="libvtkRenderingContext2D-7.0.so"/>
         <Library Value="libvtkCommonMisc-7.0.so"/>
